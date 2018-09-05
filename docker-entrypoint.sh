@@ -23,7 +23,7 @@ setup_autoregister_properties_file_for_elastic_agent() {
   echo "agent.auto.register.environments=${GO_EA_AUTO_REGISTER_ENVIRONMENT}" >> $1
   echo "agent.auto.register.elasticAgent.agentId=${GO_EA_AUTO_REGISTER_ELASTIC_AGENT_ID}" >> $1
   echo "agent.auto.register.elasticAgent.pluginId=${GO_EA_AUTO_REGISTER_ELASTIC_PLUGIN_ID}" >> $1
-  echo "agent.auto.register.hostname=${AGENT_AUTO_REGISTER_HOSTNAME}" >> $1
+  echo "agent.auto.register.hostname=${AGENT_AUTO_REGISTER_HOSTNAME}-$(hostname)" >> $1
 
   export GO_SERVER_URL="${GO_EA_SERVER_URL}"
   # unset variables, so we don't pollute and leak sensitive stuff to the agent process...
@@ -34,7 +34,7 @@ setup_autoregister_properties_file_for_normal_agent() {
   echo "agent.auto.register.key=${AGENT_AUTO_REGISTER_KEY}" >> $1
   echo "agent.auto.register.resources=${AGENT_AUTO_REGISTER_RESOURCES}" >> $1
   echo "agent.auto.register.environments=${AGENT_AUTO_REGISTER_ENVIRONMENTS}" >> $1
-  echo "agent.auto.register.hostname=${AGENT_AUTO_REGISTER_HOSTNAME}" >> $1
+  echo "agent.auto.register.hostname=${AGENT_AUTO_REGISTER_HOSTNAME}-$(hostname)" >> $1
 
   # unset variables, so we don't pollute and leak sensitive stuff to the agent process...
   unset AGENT_AUTO_REGISTER_KEY AGENT_AUTO_REGISTER_RESOURCES AGENT_AUTO_REGISTER_ENVIRONMENTS AGENT_AUTO_REGISTER_HOSTNAME
