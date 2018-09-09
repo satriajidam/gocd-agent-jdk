@@ -1,9 +1,9 @@
 FROM maven:3.5.4-jdk-8-alpine
 
-LABEL gocd.version="18.7.0" \
+LABEL gocd.version="18.8.0" \
   description="GoCD agent based on maven version 3.5.4" \
   maintainer="Agastyo Satriaji Idam <play.satriajidam@gmail.com>" \
-  gocd.full.version="18.7.0-7121" \
+  gocd.full.version="18.8.0-7433" \
   gocd.git.sha="75d1247f58ab8bcde3c5b43392a87347979f82c5" \
   jdk.version="1.8.0_171" \
   mvn.version="3.5.4"
@@ -33,10 +33,10 @@ RUN \
   apk upgrade --no-cache && \
   apk add --no-cache git mercurial subversion openssh-client bash curl && \
 # download the zip file
-  curl --fail --location --silent --show-error "https://download.gocd.org/binaries/18.7.0-7121/generic/go-agent-18.7.0-7121.zip" > /tmp/go-agent.zip && \
+  curl --fail --location --silent --show-error "https://download.gocd.org/binaries/18.8.0-7433/generic/go-agent-18.8.0-7433.zip" > /tmp/go-agent.zip && \
 # unzip the zip file into /go-agent, after stripping the first path prefix
   unzip /tmp/go-agent.zip -d / && \
-  mv go-agent-18.7.0 /go-agent && \
+  mv go-agent-18.8.0 /go-agent && \
   rm /tmp/go-agent.zip && \
   mkdir -p /docker-entrypoint.d
 
@@ -44,7 +44,6 @@ RUN \
 COPY agent-bootstrapper-logback-include.xml /go-agent/config/agent-bootstrapper-logback-include.xml
 COPY agent-launcher-logback-include.xml /go-agent/config/agent-launcher-logback-include.xml
 COPY agent-logback-include.xml /go-agent/config/agent-logback-include.xml
-
-ADD docker-entrypoint.sh /
+COPY docker-entrypoint.sh /
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
