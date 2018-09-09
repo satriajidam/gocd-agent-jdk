@@ -19,22 +19,22 @@ ARG UID=1000
 ARG GID=1000
 
 RUN \
-# add mode and permissions for files we added above
+  # add mode and permissions for files we added above
   chmod 0755 /usr/local/sbin/tini && \
   chown root:root /usr/local/sbin/tini && \
   chmod 0755 /usr/local/sbin/gosu && \
   chown root:root /usr/local/sbin/gosu && \
-# add our user and group first to make sure their IDs get assigned consistently,
-# regardless of whatever dependencies get added
+  # add our user and group first to make sure their IDs get assigned consistently,
+  # regardless of whatever dependencies get added
   addgroup -g ${GID} go && \ 
   adduser -D -u ${UID} -s /bin/bash -G go go && \ 
   addgroup go root && \
   apk update --no-cache && \
   apk upgrade --no-cache && \
   apk add --no-cache git mercurial subversion openssh-client bash curl && \
-# download the zip file
+  # download the zip file
   curl --fail --location --silent --show-error "https://download.gocd.org/binaries/18.8.0-7433/generic/go-agent-18.8.0-7433.zip" > /tmp/go-agent.zip && \
-# unzip the zip file into /go-agent, after stripping the first path prefix
+  # unzip the zip file into /go-agent, after stripping the first path prefix
   unzip /tmp/go-agent.zip -d / && \
   mv go-agent-18.8.0 /go-agent && \
   rm /tmp/go-agent.zip && \
