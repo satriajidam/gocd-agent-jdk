@@ -20,7 +20,7 @@ setup_autoregister_properties_file_for_normal_agent() {
   echo "agent.auto.register.key=${AGENT_AUTO_REGISTER_KEY}" >> $1
   echo "agent.auto.register.resources=${AGENT_AUTO_REGISTER_RESOURCES}" >> $1
   echo "agent.auto.register.environments=${AGENT_AUTO_REGISTER_ENVIRONMENTS}" >> $1
-  echo "agent.auto.register.hostname=${AGENT_AUTO_REGISTER_HOSTNAME}-$(hostname)" >> $1
+  echo "agent.auto.register.hostname=${AGENT_AUTO_REGISTER_HOSTNAME}-$(head -1 /proc/self/cgroup | cut -d/ -f3 | cut -c1-12)" >> $1
 
   # unset variables, so we don't pollute and leak sensitive stuff to the agent process...
   unset AGENT_AUTO_REGISTER_KEY AGENT_AUTO_REGISTER_RESOURCES AGENT_AUTO_REGISTER_ENVIRONMENTS AGENT_AUTO_REGISTER_HOSTNAME
